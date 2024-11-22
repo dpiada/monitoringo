@@ -8,8 +8,13 @@ There isn't the pride to create something new, but thank you if you are reading 
 
 ## Project Solution
 
-My idea is, create a monitoring platform where the main server expose APIs to do CRUD operations for configuration where it's possibile set following values:
+My idea is, create a monitoring platform where the main server expose APIs to do CRUD operations for configuration where are saved the details to do the monitoring request.
 
+The result of request it's saved in a othe table that show the historical progress of the healthy check
+
+![sol-221124](./files/MonitorinGo.sol221124.png)
+
+### Objects structure
 
 The `configuration` object defines the structure of a record with the following fields:
 
@@ -37,7 +42,11 @@ The `configuration` object defines the structure of a record with the following 
     "is_active": true,
     "last_update": "2024-11-22T10:00:00Z"
 }
+```
 
-This record gives us all information useful to create the alert 
+This record gives us all information useful to create the alert.
 
+## Files
 
+- [Draw of the Solution Diagram](./files/MonitorinGo.drawio)  
+  A diagram illustrating the solution structure and flow.
