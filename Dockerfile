@@ -2,12 +2,17 @@ FROM golang:1.23
 
 WORKDIR /app
 
+# Copy go.mod and go.sum
 COPY go.mod go.sum ./
 
-COPY *.go ./
+# Download dependencies
+RUN go mod download
 
-# Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /monitoringo
+# Copy all source files
+COPY . .
 
-# Run
-CMD ["/monitoringo"]
+# Build the application
+RUN CGO_ENABLED=0 GOOS=linux go build -o monitoringo
+
+# Run the built binary
+CMD ["/app/monitoringo"]
