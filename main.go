@@ -1,13 +1,13 @@
 package main
 
 import (
-
 	"monitoringo/src/routes"
 	"github.com/gin-gonic/gin"
 ) 
 
 func main() {
 	server := gin.Default()
+	
 	//Health routes
     server.GET("/health", routes.HealthHandler)
 
@@ -19,7 +19,6 @@ func main() {
 
 	//get health result routes
 	server.GET("/health-results", routes.GetResults)
-	
 
     server.Run()
 }
