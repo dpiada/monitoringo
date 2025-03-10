@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"log"
+	"monitoringo/src/database"
 	"monitoringo/src/routes"
 
 	"github.com/gin-gonic/gin"
@@ -10,6 +12,9 @@ import (
 func main() {
 
 	server := gin.Default()
+
+	client := database.InitDatabase()
+	defer client.Disconnect(context.Background())
 
 	// Health routes
 	server.GET("/health", routes.HealthHandler)
