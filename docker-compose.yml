@@ -1,0 +1,34 @@
+
+
+volumes:
+    mongo-database-data:
+        driver: local
+        name: mongo-database-data
+
+services:
+  monitoringo-backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGODB_URI=mongodb://root:mongolone@mongo:27017/
+    depends_on:
+      mongo:
+        condition: service_healthy
+  
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongolone
+
+    volumes:
+      - mongo-database-data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 3
