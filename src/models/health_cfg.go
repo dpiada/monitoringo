@@ -4,16 +4,24 @@ import (
 	"time"
 )
 
-type responseCfg struct {
-	resultCode int    `json:"result code"`
-	message    string `json:"message"`
+type ResponseCfg struct {
+	ResultCode int    `json:"result_code"`
+	Message    string `json:"message"`
 }
 
-type healthCfg struct {
-	ID         string      `json:"id"`
+type HealthCfgRequest struct {
+	Protocol string      `json:"protocol"`
+	Response ResponseCfg `json:"response"`
+	Interval int         `json:"interval"`
+	IsActive bool        `json:"is_active"`
+	Path     string      `json:"path"`
+}
+
+type HealthCfgResponse struct {
 	Protocol   string      `json:"protocol"`
-	Response   responseCfg `json:"response"`
+	Response   ResponseCfg `json:"response"`
 	Interval   int         `json:"interval"`
 	IsActive   bool        `json:"is_active"`
+	Path       string      `json:"path"`
 	LastUpdate time.Time   `json:"last_update"`
 }

@@ -21,7 +21,7 @@ The `configuration` object defines the structure of a record with the following 
 | Field         | Type               | Description                                                                                             |
 |---------------|--------------------|---------------------------------------------------------------------------------------------------------|
 | `protocol`    | `string`           | HTTP method to use. Acceptable values: `GET`, `POST`, `PUT`, `DEL`.                                     |
-| `url`         | `string`           | The URL to be accessed (e.g., `https://www.google.com/`).                                               |
+| `path`         | `string`           | The URL to be accessed (e.g., `https://www.google.com/`).                                               |
 | `response`    | `json` (optional)  | Default: `{ response_range: "200 - 499", message: null }`. Contains:                                    |
 |               |                    | - `response_range` (`string`): Expected range of HTTP response codes. Default: `"200 - 499"`.           |
 |               |                    | - `message` (`string`): Optional custom message. Default: `null`.                                      |

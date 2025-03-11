@@ -10,24 +10,31 @@ import (
 )
 
 func main() {
+	log.Println("Server starting...")
 
 	server := gin.Default()
-
 	client := database.InitDatabase()
-	defer client.Disconnect(context.Background())
-	server.Use(database.MongoMiddleware())
+
+	// Pass the MongoDB client to the middleware
+	server.Use(database.MongoMiddleware(client))
+
+	// Add deferred disconnection with proper context
+	defer func() {
+		if err := client.Disconnect(context.Background()); err != nil {
+			log.Printf("Error disconnecting from MongoDB: %v", err)
+		}
+	}()
+
 	// Health routes
 	server.GET("/health", routes.HealthHandler)
-
 	// Configuration health routes
 	server.POST("/configuration", routes.SetHealthCfg)
-	server.PUT("/configuration/:id", routes.EditHealthCfg)
-	server.DELETE("/configuration/:id", routes.DelHealthCfg)
-	server.GET("/configuration/:id", routes.GetHealthCfg)
+	server.GET("/configurations", routes.GetHealthCfgList)
 
 	// Get health result routes
 	server.GET("/health-results", routes.GetResults)
 
-	server.Run(":8080")
-	log.Println("Server starting...")
+	if err := server.Run(":8080"); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
