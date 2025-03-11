@@ -15,7 +15,7 @@ func main() {
 
 	client := database.InitDatabase()
 	defer client.Disconnect(context.Background())
-
+	server.Use(database.MongoMiddleware())
 	// Health routes
 	server.GET("/health", routes.HealthHandler)
 
