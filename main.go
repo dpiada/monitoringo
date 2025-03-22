@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"monitoringo/src/activator"
 	"monitoringo/src/database"
 	"monitoringo/src/routes"
 
@@ -33,6 +34,8 @@ func main() {
 
 	// Get health result routes
 	server.GET("/health-results", routes.GetResults)
+
+	go activator.Activator(client)
 
 	if err := server.Run(":8080"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
