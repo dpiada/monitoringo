@@ -10,7 +10,7 @@ type ResponseCfg struct {
 }
 
 type HealthCfgRequest struct {
-	Protocol string      `json:"protocol"`
+	Method   string      `json:"Method"`
 	Response ResponseCfg `json:"response"`
 	Interval int         `json:"interval"`
 	IsActive bool        `json:"is_active"`
@@ -18,7 +18,7 @@ type HealthCfgRequest struct {
 }
 
 type HealthCfgResponse struct {
-	Protocol   string      `json:"protocol"`
+	Method     string      `json:"Method"`
 	Response   ResponseCfg `json:"response"`
 	Interval   int         `json:"interval"`
 	IsActive   bool        `json:"is_active"`

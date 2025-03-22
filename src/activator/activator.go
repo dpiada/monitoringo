@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"monitoringo/src/models"
+	"net/http"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -13,6 +14,7 @@ import (
 func Activator(client *mongo.Client) {
 
 	log.Println("Start activator")
+
 	// Get congifurations
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -42,12 +44,22 @@ func Activator(client *mongo.Client) {
 		lastUpdate := config.LastUpdate
 		diff := now.Sub(lastUpdate)
 		if diff.Seconds() > float64(config.Interval) {
-			filter := bson.D{{"_id", id}} // Filter to match the document
-			update := bson.D{{"$set", bson.D{{"fieldName", newValue}}}}
+			NewRequest, err := http.NewRequest(config.Method, config.Path, http.NoBody)
+			if err != nil {
+				log.Println(err)
+			}
 
-			result, err := client.Database("configurations").
-				Collection("health_config").
-				UpdateOne(ctx, filter, update)
+			resp, err := http.DefaultClient.Do(NewRequest)
+			if err != nil {
+				log.Printf("[%d] Failed to send HTTP request: %v", index, err)
+				continue
+			}
+			defer resp.Body.Close()
+
+			if resp.StatusCode == config.Response.ResultCode {
+				log.Println("beeeeello")
+			}
+
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 ## Introduction 
 
-Monitoringo it's a simple project to discover golang, the main target is create knowledge on this language, to do this I have taken the decision to develop a monitoring platform over HTTP and HTTPS protocol.
+Monitoringo it's a simple project to discover golang, the main target is create knowledge on this language, to do this I have taken the decision to develop a monitoring platform over HTTP and HTTPS Method.
 
 There isn't the pride to create something new, but thank you if you are reading this.
 
@@ -20,7 +20,7 @@ The `configuration` object defines the structure of a record with the following 
 
 | Field         | Type               | Description                                                                                             |
 |---------------|--------------------|---------------------------------------------------------------------------------------------------------|
-| `protocol`    | `string`           | HTTP method to use. Acceptable values: `GET`, `POST`, `PUT`, `DEL`.                                     |
+| `method`    | `string`           | HTTP method to use. Acceptable values: `GET`, `POST`, `PUT`, `DEL`.                                     |
 | `path`         | `string`           | The URL to be accessed (e.g., `https://www.google.com/`).                                               |
 | `response`    | `json` (optional)  | Default: `{ response_range: "200 - 499", message: null }`. Contains:                                    |
 |               |                    | - `response_range` (`string`): Expected range of HTTP response codes. Default: `"200 - 499"`.           |
@@ -32,7 +32,7 @@ The `configuration` object defines the structure of a record with the following 
 #### Example:
 ```json
 {
-    "protocol": "GET",
+    "Method": "GET",
     "url": "https://www.google.com/",
     "response": {
         "response_range": "200 - 499",
